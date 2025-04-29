@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/deepak
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+#spring:
+#  r2dbc:
+#    url: r2dbc:postgresql://localhost:5432/deepak
+#    username: root
+#    password: root
+#
+#springdoc:
+#  swagger-ui:
+#    path: /api
