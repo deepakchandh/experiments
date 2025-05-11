@@ -20,9 +20,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 
     private EmployeeRepository employeeRepository;
+    private APIClient apiClient;
 
 //   private RestTemplate restTemplate;
-   private WebClient webClient;
+//   private WebClient webClient;
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
@@ -40,11 +41,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     public APIResponseDto getEmployeeById(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId).get();
 
-        DepartmentDto deptdto = webClient.get()
-                .uri("http://localhost:8080/api/departments/" + employee.getDepartmentCode())
-                .retrieve()
-                .bodyToMono(DepartmentDto.class)
-                .block();
+        DepartmentDto deptdto = apiClient.getDepartment(employee.getDepartmentCode());
+
+//        DepartmentDto deptdto = webClient.get()
+//                .uri("http://localhost:8080/api/departments/" + employee.getDepartmentCode())
+//                .retrieve()
+//                .bodyToMono(DepartmentDto.class)
+//                .block();
 //        ResponseEntity<DepartmentDto> deptdto =
 //                restTemplate.getForEntity("http://localhost:8080/api/departments/" + employee.getDepartmentCode(), DepartmentDto.class);
         return  new APIResponseDto(EmployeeMapper.mapToEmployeeDto(employee), deptdto);
